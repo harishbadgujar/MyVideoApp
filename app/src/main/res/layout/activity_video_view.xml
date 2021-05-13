@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+
+    <variable
+        name="viewmodel"
+        type="com.example.myvideoapp.ui.VideoViewModal" />
+
+  </data>
+
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      tools:context=".ui.VideoActivity">
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:background="#fff"
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@android:layout/simple_list_item_2" />
+
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
