@@ -22,12 +22,12 @@ import kotlinx.android.synthetic.main.activity_main.progressBar
 import kotlinx.android.synthetic.main.activity_video_stream.*
 
 
-class VideoStreamActivity : AppCompatActivity() , Player.EventListener {
+class VideoStreamActivity : AppCompatActivity(), Player.EventListener {
     private lateinit var simpleExoplayer: SimpleExoPlayer
     private var playbackPosition: Long = 0
-    lateinit var showlink : String
+    lateinit var showlink: String
     var isMute: Boolean = true
-    var brightness : Int = 0
+    var brightness: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,28 +35,25 @@ class VideoStreamActivity : AppCompatActivity() , Player.EventListener {
 
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
-        showlink  = intent.getStringExtra("link").toString()
+        showlink = intent.getStringExtra("link").toString()
 
 
         ivVolume.setOnClickListener(View.OnClickListener {
 
-           // Toast.makeText(this,"sound Testing",Toast.LENGTH_LONG).show()
-
-            if(isMute){
+            if (isMute) {
 
                 isMute = false
                 simpleExoplayer.pause()
 
-                 ivVolume.setImageResource(R.drawable.ic_volume_off)
-                 ivVolume.visibility = View.GONE
-                 ivVolumeDown.visibility = View.VISIBLE
+                ivVolume.setImageResource(R.drawable.ic_volume_off)
+                ivVolume.visibility = View.GONE
+                ivVolumeDown.visibility = View.VISIBLE
 
 
-            }else{
+            } else {
 
                 isMute = true
 
-               // simpleExoplayer.playWhenReady(true)
                 simpleExoplayer.playWhenReady
                 ivVolume.visibility = View.GONE
                 ivVolume.setImageResource(R.drawable.ic_volume_on)
@@ -70,17 +67,15 @@ class VideoStreamActivity : AppCompatActivity() , Player.EventListener {
         ivVolumeDown.setOnClickListener(View.OnClickListener {
 
 
-            if(isMute){
+            if (isMute) {
 
-              //  Toast.makeText(this,"sound off",Toast.LENGTH_LONG).show()
 
                 simpleExoplayer.pause()
                 ivVolume.setImageResource(R.drawable.ic_volume_off)
                 isMute = false
 
-            }else{
+            } else {
 
-               // Toast.makeText(this,"sound on",Toast.LENGTH_LONG).show()
                 isMute = true
                 simpleExoplayer.play()
                 ivVolume.visibility = View.VISIBLE
@@ -92,31 +87,7 @@ class VideoStreamActivity : AppCompatActivity() , Player.EventListener {
 
         })
 
-        seekBarBrighNess()
 
-    }
-
-    private fun seekBarBrighNess() {
-        brightness = Settings.System.getInt(
-            this.getContentResolver(),
-            Settings.System.SCREEN_BRIGHTNESS, 0
-        )
-        seekBar.setProgress(brightness)
-        seekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
-            override fun onProgressChanged(
-                seekBar: SeekBar,
-                progress: Int,
-                fromUser: Boolean
-            ) {
-                Settings.System.putInt(
-                    applicationContext.getContentResolver(),
-                    Settings.System.SCREEN_BRIGHTNESS, progress
-                )
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar) {}
-            override fun onStopTrackingTouch(seekBar: SeekBar) {}
-        })
     }
 
 
@@ -136,8 +107,8 @@ class VideoStreamActivity : AppCompatActivity() , Player.EventListener {
 
     private fun initializePlayer() {
         simpleExoplayer = SimpleExoPlayer.Builder(this).build()
-       // val randomUrl = urlList.random()
-        preparePlayer(showlink,"dash1")
+        // val randomUrl = urlList.random()
+        preparePlayer(showlink, "dash1")
         exoplayerView.player = simpleExoplayer
         simpleExoplayer.seekTo(playbackPosition)
         simpleExoplayer.playWhenReady = true
@@ -153,10 +124,10 @@ class VideoStreamActivity : AppCompatActivity() , Player.EventListener {
     private fun buildMediaSource(uri: Uri, type: String): MediaSource {
         return if (type == "dash") {
             DashMediaSource.Factory(dataSourceFactory)
-                .createMediaSource(uri)
+                    .createMediaSource(uri)
         } else {
             ProgressiveMediaSource.Factory(dataSourceFactory)
-                .createMediaSource(uri)
+                    .createMediaSource(uri)
         }
     }
 
